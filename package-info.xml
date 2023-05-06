@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+  <id>msikma:GWBBC</id>
+  <name>GW BBC</name>
+  <version>1.0.0</version>
+  <type>modification</type>
+
+  <install for="2.0-2.0.99">
+    <readme parsebbc="true">src/gwbbc.readme.txt</readme>
+    <require-dir name="gwbbc.vendor" destination="$sourcedir" />
+    <require-file name="src/gwbbc.english.php" destination="$languagedir" />
+    <require-file name="src/gwbbc.subs.php" destination="$sourcedir" />
+    <require-file name="src/gwbbc.util.php" destination="$sourcedir" />
+    <require-file name="src/static/gwbbc.style.css" destination="$sourcedir" />
+    <require-file name="src/static/gwbbc.script.js" destination="$sourcedir" />
+    <require-file name="src/static/gwbbc.youtube.gif" destination="$imagesdir/bbc" />
+    <require-file name="src/static/gwbbc.hide.gif" destination="$imagesdir/bbc" />
+    <require-file name="src/static/gwbbc.spoiler.gif" destination="$imagesdir/bbc" />
+    <require-file name="src/static/gwbbc.dohtml.gif" destination="$imagesdir/bbc" />
+    <code>src/gwbbc.hooks.php</code>
+    <redirect url="?action=admin;area=packages" timeout="500">Redirecting to the Package Manager.</redirect>
+  </install>
+
+  <uninstall for="2.0-2.0.99">
+    <readme parsebbc="true">src/gwbbc.readme.txt</readme>
+    <remove-dir name="$sourcedir/gwbbc.vendor" />
+    <remove-file name="$languagedir/gwbbc.english.php" />
+    <remove-file name="$sourcedir/gwbbc.subs.php" />
+    <remove-file name="$sourcedir/gwbbc.util.php" />
+    <remove-file name="$sourcedir/gwbbc.style.css" />
+    <remove-file name="$sourcedir/gwbbc.script.js" />
+    <remove-file name="$imagesdir/bbc/gwbbc.youtube.gif" />
+    <remove-file name="$imagesdir/bbc/gwbbc.hide.gif" />
+    <remove-file name="$imagesdir/bbc/gwbbc.spoiler.gif" />
+    <remove-file name="$imagesdir/bbc/gwbbc.dohtml.gif" />
+    <code>src/gwbbc.hooks.php</code>
+    <redirect url="?action=admin;area=packages" timeout="500">Redirecting to the Package Manager.</redirect>
+  </uninstall>
+</package-info>

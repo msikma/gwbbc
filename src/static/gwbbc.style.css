@@ -1,0 +1,44 @@
+/** GW BBC <https://github.com/msikma/gwbbc> */
+
+/* Common class for all GW BBC elements. */
+.gwbbc {
+}
+
+/* [youtube]3PATpHLoGrU[/youtube] (block element) */
+.gwbbc.gwbbc_youtube {
+}
+
+/* [hide]hidden content[/hide] (block element) */
+.gwbbc.gwbbc_hide {
+  margin: 10px 0;
+}
+.gwbbc.gwbbc_hide .hide_title {
+}
+.gwbbc.gwbbc_hide .hide_title .reason {
+}
+.gwbbc.gwbbc_hide .hide_title .reveal {
+}
+.gwbbc.gwbbc_hide .hide_content {
+}
+.gwbbc.gwbbc_hide .hide_content_inner {
+  border: 1px solid black;
+  padding: 8px;
+  display: block;
+}
+.gwbbc.gwbbc_hide.is_hidden .hide_content_inner {
+  display: none;
+}
+
+/* [spoiler]spoiler content[/spoiler] (inline element) */
+.gwbbc.gwbbc_spoiler {
+  background: black;
+  color: black;
+}
+.gwbbc.gwbbc_spoiler.is_shown {
+  background: rgba(0, 0, 0, 0.1);
+  color: inherit;
+}
+
+/* [dohtml]sanitized html content[/dohtml] (block element) */
+.gwbbc.gwbbc_dohtml {
+}

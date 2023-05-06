@@ -1,0 +1,21 @@
+{
+  "name": "dada/gwbbc",
+  "version": "1.0.0",
+  "authors": [
+    {"name": "Michiel Sikma", "email": "michiel@sikma.org"}
+  ],
+  "support": {
+    "issues": "https://github.com/msikma/gwbbc/issues"
+  },
+  "config": {
+    "vendor-dir": "gwbbc.vendor"
+  },
+  "license": "mit",
+  "keywords": ["forum", "community"],
+  "homepage": "https://github.com/msikma/gwbbc",
+  "type": "project",
+  "repository": "https://github.com/msikma/gwbbc",
+  "require": {
+    "symfony/html-sanitizer": "^6.2"
+  }
+}

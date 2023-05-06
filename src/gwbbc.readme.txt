@@ -1,0 +1,7 @@
+[size=14pt][b]GWBBC[/b][/size]
+
+Adds several new BBC tags. Designed for the [url=https://github.com/msikma/gw2006]Gaming World Forums[/url] theme.
+
+See the [url=https://github.com/msikma/gw2006]GWBBC readme[/url] on Github for more information.
+
+MIT license.
