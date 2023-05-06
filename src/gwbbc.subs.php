@@ -17,7 +17,7 @@ class GWBBC {
 	public static function addCodes(&$codes) {
     global $txt;
     
-    loadLanguage('GWBBC');
+    loadLanguage('gwbbc');
   
     // [youtube] code.
     $bbc_youtube = array(
@@ -78,7 +78,7 @@ class GWBBC {
 	public static function addButtons(&$bbc_tags) {
     global $txt;
     
-    loadLanguage('GWBBC');
+    loadLanguage('gwbbc');
   
     $tag_youtube = array(
       'image' => 'gwbbc.youtube',
