@@ -9,6 +9,7 @@
 
 $txt['gwbbc_youtube_description'] = 'Adds a Youtube embed';
 $txt['gwbbc_hide_description'] = 'Hides a section of your post';
+$txt['gwbbc_irc_description'] = 'Links to an IRC server';
 $txt['gwbbc_spoiler_description'] = 'Marks a part of the text as spoiler';
 $txt['gwbbc_dohtml_description'] = 'Includes raw HTML tags (sanitized)';
 

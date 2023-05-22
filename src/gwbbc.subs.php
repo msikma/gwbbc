@@ -45,6 +45,17 @@ class GWBBC {
       'block_level' => true,
     );
 
+    // [irc] code.
+    $bbc_irc = array(
+      'tag' => 'irc',
+      'type' => 'parsed_equals',
+      'before' => '<a href="$1" class="gwbbc gwbbc_irc">',
+      'after' => '</a>',
+      'quoted' => 'optional',
+      'parsed_tags_allowed' => array('img', 'b', 'i', 'u'),
+      'block_level' => false,
+    );
+
     // [spoiler] code.
     $bbc_spoiler_decorator = '<script>GWBBC.decorateSpoiler(document.currentScript)</script>';
     $bbc_spoiler = array(
@@ -69,6 +80,7 @@ class GWBBC {
     );
   
     $codes[] = $bbc_youtube;
+    $codes[] = $bbc_irc;
     $codes[] = $bbc_hide;
     $codes[] = $bbc_hide_pe;
     $codes[] = $bbc_spoiler;
@@ -94,6 +106,14 @@ class GWBBC {
       'before' => '[hide]',
       'after' => '[/hide]',
       'description' => $txt['gwbbc_hide_description'],
+    );
+  
+    $tag_irc = array(
+      'image' => 'gwbbc.irc',
+      'code' => 'irc',
+      'before' => '[irc]',
+      'after' => '[/irc]',
+      'description' => $txt['gwbbc_irc_description'],
     );
   
     $tag_spoiler = array(
