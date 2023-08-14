@@ -23,6 +23,12 @@ class GWBBC {
     $bbc_youtube = array(
       'tag' => 'youtube',
       'type' => 'unparsed_content',
+      'validate' => function(&$tag, &$data, $disabled) {
+        // If the user passed a youtube.com or youtu.be link, extract the ID.
+        if (preg_match('/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $data, $matches)) {
+          $data = $matches[1];
+        }
+      },
       'content' => '<div class="gwbbc gwbbc_youtube" data-content="$1"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>',
       'block_level' => true,
     );
