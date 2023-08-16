@@ -22,6 +22,10 @@ The following tags are added:
 <td>Hides content and requires the user to click to see it.</td>
 </tr>
 <tr>
+<td>[irc="irc://example.com"]link&nbsp;name[/hide]</td>
+<td>Links to an IRC server.</td>
+</tr>
+<tr>
 <td>[spoiler]post&nbsp;content[/spoiler]</td>
 <td>Marks text as a spoiler and requires a click to reveal it. Like [hide], but inline instead of block.</td>
 </tr>
