@@ -84,6 +84,20 @@ class GWBBC {
       },
       'block_level' => true,
     );
+    
+    // [quote] with author and date, but no link.
+    // Note: mostly copied from Subs.php. Used for very old converted quotes (around 2005).
+    // Example: [quote date=1537087368 author=Frisky SKeleton]
+    $bbc_quote_no_link = array(
+      'tag' => 'quote',
+      'parameters' => array(
+        'author' => array('match' => '([^<>]{1,192}?)'),
+        'date' => array('match' => '(\d+)', 'validate' => 'timeformat'),
+      ),
+      'before' => '<div class="quoteheader"><div class="topslice_quote">'.$txt['quote_from'].': {author} '.$txt['search_on'].' {date}</div></div><blockquote>',
+      'after' => '</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>',
+      'block_level' => true,
+    );
   
     $codes[] = $bbc_youtube;
     $codes[] = $bbc_irc;
@@ -91,6 +105,7 @@ class GWBBC {
     $codes[] = $bbc_hide_pe;
     $codes[] = $bbc_spoiler;
     $codes[] = $bbc_dohtml;
+    $codes[] = $bbc_quote_no_link;
   }
 
 	public static function addButtons(&$bbc_tags) {
