@@ -98,6 +98,17 @@ class GWBBC {
       'after' => '</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>',
       'block_level' => true,
     );
+
+    // [size] with three digit support.
+    // Used for very old converted posts from when you could do e.g. [size=999pt].
+    // Mostly copied from Subs.php.
+    $bbc_size = array(
+      'tag' => 'size',
+      'type' => 'unparsed_equals',
+      'test' => '([1-9][\d]?[\d]?p[xt]|small(?:er)?|large[r]?|x[x]?-(?:small|large)|medium|(0\.[1-9]|[1-9](\.[\d][\d]?)?)?em)\]',
+      'before' => '<span style="font-size: $1;" class="bbc_size">',
+      'after' => '</span>',
+    );
   
     $codes[] = $bbc_youtube;
     $codes[] = $bbc_irc;
@@ -106,6 +117,7 @@ class GWBBC {
     $codes[] = $bbc_spoiler;
     $codes[] = $bbc_dohtml;
     $codes[] = $bbc_quote_no_link;
+    $codes[] = $bbc_size;
   }
 
 	public static function addButtons(&$bbc_tags) {
