@@ -37,8 +37,8 @@ class GWBBC {
     $bbc_hide_decorator = '<script>GWBBC.decorateHide(document.currentScript)</script>';
     $bbc_hide = array(
       'tag' => 'hide',
-      'type' => 'unparsed_content',
-      'content' => '<div class="gwbbc gwbbc_hide is_hidden"><a href="#" class="hide_title"><span class="reason">'.$txt['gwbbc_hide_default'].'</span> <span class="reveal">'.$txt['gwbbc_hide_click_to_reveal'].'</span></a><div class="hide_content"><div class="hide_content_inner">$1</div></div></div>'.$bbc_hide_decorator,
+      'before' => '<div class="gwbbc gwbbc_hide is_hidden"><a href="#" class="hide_title"><span class="reason">'.$txt['gwbbc_hide_default'].'</span> <span class="reveal">'.$txt['gwbbc_hide_click_to_reveal'].'</span></a><div class="hide_content"><div class="hide_content_inner">',
+      'after' => '</div></div></div>'.$bbc_hide_decorator,
       'block_level' => true,
     );
     $bbc_hide_pe = array(
@@ -47,7 +47,6 @@ class GWBBC {
       'before' => '<div class="gwbbc gwbbc_hide is_hidden"><a href="#" class="hide_title"><span class="reason">$1</span> <span class="reveal">'.$txt['gwbbc_hide_click_to_reveal'].'</span></a><div class="hide_content"><div class="hide_content_inner">',
       'after' => '</div></div></div>'.$bbc_hide_decorator,
       'quoted' => 'optional',
-      'parsed_tags_allowed' => array('url', 'iurl', 'ftp', 'b', 'i', 'u'),
       'block_level' => true,
     );
 
