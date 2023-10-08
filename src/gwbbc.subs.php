@@ -215,6 +215,17 @@ class GWBBC {
         $data = '100%';
       },
     );
+
+    // Inline version of the center tag.
+    //
+    // This is necessary to permit [center] to work in inline context.
+    // [center]Centered text[/center]
+    $bbc_center_inline = array(
+      'tag' => 'center',
+      'before' => '<center>',
+      'after' => '</center>',
+      'block_level' => false,
+    );
   
     $codes[] = $bbc_youtube;
     $codes[] = $bbc_irc;
@@ -225,6 +236,32 @@ class GWBBC {
     $codes[] = $bbc_quote_no_link;
     $codes[] = $bbc_size;
     $codes[] = $bbc_size_catchall;
+
+    GWBBC::replaceCode('center', $bbc_center_inline, $codes);
+    GWBBC::modifyCode('left', ['block_level' => false], $codes);
+    GWBBC::modifyCode('right', ['block_level' => false], $codes);
+  }
+
+	public static function modifyCode($tag_name, $update, &$codes) {
+    // Update all existing tags.
+    foreach ($codes as $k => $v) {
+      if ($v['tag'] !== $tag_name) {
+        continue;
+      }
+      $codes[$k] = array_merge($v, $update);
+    }
+  }
+
+	public static function replaceCode($tag_name, $new_tag, &$codes) {
+    // Remove all existing tags by this tag name.
+    foreach ($codes as $k => $v) {
+      if ($v['tag'] === $tag_name) {
+        unset($codes[$k]);
+      }
+    }
+
+    // Insert the new tag.
+    $codes[] = $new_tag;
   }
 
 	public static function addButtons(&$bbc_tags) {
