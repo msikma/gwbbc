@@ -158,6 +158,22 @@ class GWBBC {
           '%' => [5, 1000]
         ];
         
+        // Static em sizes for font sizes without unit under 10.
+        $static_sizes = [
+          // 1-7 are from SMF, and are covered by its regular size tag.
+          1 => 0.7,
+          2 => 1.0,
+          3 => 1.35,
+          4 => 1.45,
+          5 => 2.0,
+          6 => 2.65,
+          7 => 3.95,
+          // The rest are added by us.
+          8 => 4.75,
+          9 => 6.0,
+          10 => 7.5,
+        ];
+        
         // Check for '+' and '-' prefixes.
         if ($data[0] === '+' || $data[0] === '-') {
           $prefix = $data[0];
@@ -180,10 +196,16 @@ class GWBBC {
           return;
         }
         
-        // Check for plain sizes, e.g. 10, 15. We assume these are 'px'.
+        // Check for plain sizes, e.g. 10, 15. Up to 10, we have static sizes;
+        // above that, we assume these are 'px' values.
         if (is_numeric($data)) {
           $minmax = $unit_minmax['px'];
           $value = floatval($data);
+          // Return static sizes.
+          if ($value > 0 && $value <= 10) {
+            $data = $static_sizes[ceil($value)] . 'em';
+            return;
+          }
           $value = max($minmax[0], min($minmax[1], $value));
           $data = $value . 'px';
           return;
