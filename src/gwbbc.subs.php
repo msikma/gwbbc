@@ -127,6 +127,72 @@ class GWBBC {
       'before' => '<span style="font-size: $1;" class="bbc_size">',
       'after' => '</span>',
     );
+
+    // The following size tag catches all other uses from old posts.
+    // Throughout the years various alternate argument styles were valid.
+    // This sanitizes the values to counter abuse.
+    // Examples: [size=+1], [size=-1], [size=0], [size=1000000], [size=45], [size=50%], [size=2000pt].
+    $bbc_size_catchall = array(
+      'tag' => 'size',
+      'type' => 'unparsed_equals',
+      'before' => '<span style="font-size: $1;" class="bbc_size">',
+      'after' => '</span>',
+      'validate' => function(&$tag, &$data, $disabled) {
+        $data = trim($data);
+        
+        // Quick sanity check: if there's no valid value, just display 100% size.
+        if ($data !== '0' && empty($data)) {
+          $data = '100%';
+          return;
+        }
+        
+        // The base size in pt: used to calculate relative font sizes like +1.
+        $base_size = 10;
+        
+        // Minimum and maximum sizes for various supported units.
+        $unit_minmax = [
+          'px' => [1, 200],
+          'pt' => [2, 150],
+          'em' => [0.1, 10],
+          'rem' => [0.1, 10],
+          '%' => [5, 1000]
+        ];
+        
+        // Check for '+' and '-' prefixes.
+        if ($data[0] === '+' || $data[0] === '-') {
+          $prefix = $data[0];
+          $minmax = $unit_minmax['pt'];
+          $value = floatval(substr($data, 1));
+          $value = $prefix === '+' ? ($base_size + $value) : ($base_size - $value);
+          $value = max($minmax[0], min($minmax[1], $value));
+          $data = $value . 'pt';
+          return;
+        }
+        
+        // Check for 'px', 'pt', 'em', 'rem' suffixes.
+        // Other CSS suffixes exist, but we don't support them.
+        if (preg_match('/(px|pt|em|rem|%)$/', $data, $matches)) {
+          $unit = $matches[0];
+          $minmax = $unit_minmax[$unit];
+          $value = substr($data, 0, -strlen($unit));
+          $value = max($minmax[0], min($minmax[1], $value));
+          $data = $value . $unit;
+          return;
+        }
+        
+        // Check for plain sizes, e.g. 10, 15. We assume these are 'px'.
+        if (is_numeric($data)) {
+          $minmax = $unit_minmax['px'];
+          $value = floatval($data);
+          $value = max($minmax[0], min($minmax[1], $value));
+          $data = $value . 'px';
+          return;
+        }
+        
+        // If it's not one of these, just use regular font size.
+        $data = '100%';
+      },
+    );
   
     $codes[] = $bbc_youtube;
     $codes[] = $bbc_irc;
@@ -136,6 +202,7 @@ class GWBBC {
     $codes[] = $bbc_dohtml;
     $codes[] = $bbc_quote_no_link;
     $codes[] = $bbc_size;
+    $codes[] = $bbc_size_catchall;
   }
 
 	public static function addButtons(&$bbc_tags) {
