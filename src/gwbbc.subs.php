@@ -19,7 +19,10 @@ class GWBBC {
     
     loadLanguage('gwbbc');
   
-    // [youtube] code.
+    // YouTube embed code.
+    //
+    // [youtube]https://www.youtube.com/watch?v=xcjRiJWjvVY[/youtube]
+    // [youtube]https://youtu.be/xcjRiJWjvVY[/youtube]
     $bbc_youtube = array(
       'tag' => 'youtube',
       'type' => 'unparsed_content',
@@ -33,7 +36,9 @@ class GWBBC {
       'block_level' => true,
     );
 
-    // [hide] code.
+    // Post content section that is hidden and expandable.
+    //
+    // [hide]My [b]post content[/b] here.[/hide]
     $bbc_hide_decorator = '<script>GWBBC.decorateHide(document.currentScript)</script>';
     $bbc_hide = array(
       'tag' => 'hide',
@@ -41,6 +46,8 @@ class GWBBC {
       'after' => '</div></div></div>'.$bbc_hide_decorator,
       'block_level' => true,
     );
+    // [hide=Changelog]Changelog [b]content[/b] here.[/hide]
+    // [hide="Changelog"]Changelog [b]content[/b] here.[/hide]
     $bbc_hide_pe = array(
       'tag' => 'hide',
       'type' => 'parsed_equals',
@@ -50,18 +57,21 @@ class GWBBC {
       'block_level' => true,
     );
 
-    // [irc] code.
+    // IRC server link.
+    //
+    // [irc=irc://irc.whahay.net/targ_like_cupcakes]targ irc channel[/irc]
     $bbc_irc = array(
       'tag' => 'irc',
       'type' => 'parsed_equals',
       'before' => '<a href="$1" class="gwbbc gwbbc_irc">',
       'after' => '</a>',
       'quoted' => 'optional',
-      'parsed_tags_allowed' => array('img', 'b', 'i', 'u'),
       'block_level' => false,
     );
 
-    // [spoiler] code.
+    // Spoiler tag.
+    //
+    // [spoiler]All this content is hidden until clicked[/spoiler]
     $bbc_spoiler_decorator = '<script>GWBBC.decorateSpoiler(document.currentScript)</script>';
     $bbc_spoiler = array(
       'tag' => 'spoiler',
@@ -70,7 +80,11 @@ class GWBBC {
       'block_level' => false,
     );
 
-    // [dohtml] code.
+    // HTML embed code.
+    //
+    // All content is sanitized.
+    //
+    // [dohtml]<b>HTML code goes here.</b> All content is sanitized, so this doesn't work: </div>[/dohtml]
     $bbc_dohtml = array(
       'tag' => 'dohtml',
       'type' => 'unparsed_content',
@@ -84,9 +98,11 @@ class GWBBC {
       'block_level' => true,
     );
     
-    // [quote] with author and date, but no link.
-    // Note: mostly copied from Subs.php. Used for very old converted quotes (around 2005).
-    // Example: [quote date=1537087368 author=Frisky SKeleton]
+    // Quote tag with author and date, but no link.
+    //
+    // Mostly copied from Subs.php and modified. Used for very old converted quotes (around 2005).
+    //
+    // [quote date=1537087368 author=Frisky SKeleton]Quoted content goes here.[/quote]
     $bbc_quote_no_link = array(
       'tag' => 'quote',
       'parameters' => array(
@@ -98,9 +114,12 @@ class GWBBC {
       'block_level' => true,
     );
 
-    // [size] with three digit support.
-    // Used for very old converted posts from when you could do e.g. [size=999pt].
-    // Mostly copied from Subs.php.
+    // Updated size tag with three digit support.
+    //
+    // This is used for very old converted posts that permitted larger size values.
+    // Mostly copied from Subs.php and modified.
+    //
+    // [size=200pt]Really, really large text.[/size]
     $bbc_size = array(
       'tag' => 'size',
       'type' => 'unparsed_equals',
