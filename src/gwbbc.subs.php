@@ -14,7 +14,7 @@ if (!defined('SMF')) {
 }
 
 class GWBBC {
-	public static function addCodes(&$codes) {
+  public static function addCodes(&$codes) {
     global $txt;
     
     loadLanguage('gwbbc');
@@ -242,7 +242,7 @@ class GWBBC {
     GWBBC::modifyCode('right', ['block_level' => false], $codes);
   }
 
-	public static function modifyCode($tag_name, $update, &$codes) {
+  public static function modifyCode($tag_name, $update, &$codes) {
     // Update all existing tags.
     foreach ($codes as $k => $v) {
       if ($v['tag'] !== $tag_name) {
@@ -252,7 +252,7 @@ class GWBBC {
     }
   }
 
-	public static function replaceCode($tag_name, $new_tag, &$codes) {
+  public static function replaceCode($tag_name, $new_tag, &$codes) {
     // Remove all existing tags by this tag name.
     foreach ($codes as $k => $v) {
       if ($v['tag'] === $tag_name) {
@@ -264,7 +264,7 @@ class GWBBC {
     $codes[] = $new_tag;
   }
 
-	public static function addButtons(&$bbc_tags) {
+  public static function addButtons(&$bbc_tags) {
     global $txt;
     
     loadLanguage('gwbbc');
@@ -313,11 +313,11 @@ class GWBBC {
     insert_bbc_button_after($bbc_tags, $tag_hide, 'youtube', false);
     insert_bbc_button_after($bbc_tags, $tag_spoiler, 'hide', false);
     insert_bbc_button_after($bbc_tags, $tag_dohtml, 'spoiler', false, true);
-	}
+  }
 
-	public static function addStyles() {
-		global $context, $boardurl;
-		$context['html_headers'] .= '<link rel="stylesheet" type="text/css" href="'.$boardurl.'/Sources/gwbbc.style.css">';
-		$context['html_headers'] .= '<script type="text/javascript" src="'.$boardurl.'/Sources/gwbbc.script.js"></script>';
+  public static function addStyles() {
+    global $context, $boardurl;
+    $context['html_headers'] .= '<link rel="stylesheet" type="text/css" href="'.$boardurl.'/Sources/gwbbc.style.css">';
+    $context['html_headers'] .= '<script type="text/javascript" src="'.$boardurl.'/Sources/gwbbc.script.js"></script>';
   }
 }
