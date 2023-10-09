@@ -226,6 +226,53 @@ class GWBBC {
       'after' => '</center>',
       'block_level' => false,
     );
+
+    // Background color tag.
+    //
+    // [background=red]Red background[/background]
+    $bbc_background = array(
+      'tag' => 'background',
+      'type' => 'unparsed_equals',
+      'test' => '(#[\da-fA-F]{3}|#[\da-fA-F]{6}|[A-Za-z]{1,20}|rgb\(\d{1,3}, ?\d{1,3}, ?\d{1,3}\))\]',
+      'before' => '<span style="background-color: $1;" class="bbc_bgcolor">',
+      'after' => '</span>',
+    );
+
+    // Blink tag.
+    //
+    // This does not do anything in modern browsers.
+    //
+    // [blink]Blinking text[/blink]
+    $bbc_blink = array(
+      'tag' => 'blink',
+      'before' => '<blink>',
+      'after' => '</blink>',
+    );
+
+    // Twitter link.
+    //
+    // This is used to link directly to Twitter accounts, for legacy support with IPB.
+    // [twitter]dada78641[/twitter]
+    $bbc_twitter = array(
+      'tag' => 'twitter',
+      'type' => 'unparsed_content',
+      'content' => '<a href="https://twitter.com/$1" class="bbc_twitter">@$1</a>',
+    );
+
+    // Text indentation tag.
+    //
+    // This indents text by a given amount of space, indicated by an integer.
+    // [indent=1]Indented 1 space.[/indent]
+    $bbc_indent = array(
+      'tag' => 'indent',
+      'type' => 'parsed_equals',
+      'before' => '<div class="bbc_indent indent_$1" style="margin-left:calc($1rem * 2.5)">',
+      'after' => '</div>',
+      'validate' => function(&$tag, &$data, $disabled) {
+        $data = intval($data);
+      },
+      'block_level' => true,
+    );
   
     $codes[] = $bbc_youtube;
     $codes[] = $bbc_irc;
@@ -236,6 +283,10 @@ class GWBBC {
     $codes[] = $bbc_quote_no_link;
     $codes[] = $bbc_size;
     $codes[] = $bbc_size_catchall;
+    $codes[] = $bbc_background;
+    $codes[] = $bbc_blink;
+    $codes[] = $bbc_twitter;
+    $codes[] = $bbc_indent;
 
     GWBBC::replaceCode('center', $bbc_center_inline, $codes);
     GWBBC::modifyCode('left', ['block_level' => false], $codes);
