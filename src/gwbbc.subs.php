@@ -273,6 +273,18 @@ class GWBBC {
       },
       'block_level' => true,
     );
+
+    // Legacy IPB forum tags support.
+    //
+    // This allows IPB topic tags to be transferred over to SMF.
+    // Really this content just needs to be hidden; it's not supposed to be visible,
+    // as these tags are extracted and displayed in the topic title.
+    // [legacy_ipb_tag]an old tag[/legacy_ipb_tag]
+    $bbc_legacy_ipb_tag = array(
+      'tag' => 'legacy_ipb_tag',
+      'type' => 'unparsed_content',
+      'content' => '<span data-tag="legacy_ipb_tag" data-value="$1" class="bbc_legacy_ipb_tag"></span>',
+    );
   
     $codes[] = $bbc_youtube;
     $codes[] = $bbc_irc;
@@ -287,6 +299,7 @@ class GWBBC {
     $codes[] = $bbc_blink;
     $codes[] = $bbc_twitter;
     $codes[] = $bbc_indent;
+    $codes[] = $bbc_legacy_ipb_tag;
 
     GWBBC::replaceCode('center', $bbc_center_inline, $codes);
     GWBBC::modifyCode('left', ['block_level' => false], $codes);
