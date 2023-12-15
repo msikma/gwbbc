@@ -127,6 +127,29 @@ class GWBBC {
       'after' => '</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>',
       'block_level' => true,
     );
+    
+    // Reimplementation of the <marquee> tag.
+    //
+    // [marquee]Hi[/marquee]
+    $bbc_marquee_simple = array(
+      'tag' => 'marquee',
+      'before' => '<marquee>',
+      'after' => '</marquee>',
+      'block_level' => true,
+    );
+    $bbc_marquee_complex = array(
+      'tag' => 'marquee',
+      'parameters' => array(
+        'behavior' => array('optional' => true, 'value' => ' behavior="$1"'),
+        'direction' => array('optional' => true, 'value' => ' direction="$1"'),
+        'scrollamount' => array('optional' => true, 'value' => ' scrollamount="$1"'),
+        'scrolldelay' => array('optional' => true, 'value' => ' scrolldelay="$1"'),
+        'truespeed' => array('optional' => true, 'value' => ' truespeed="$1"'),
+      ),
+      'before' => '<marquee{behavior}{direction}{scrollamount}{scrolldelay}{truespeed}>',
+      'after' => '</marquee>',
+      'block_level' => true,
+    );
 
     // Updated size tag with three digit support.
     //
@@ -314,6 +337,8 @@ class GWBBC {
     $codes[] = $bbc_twitter;
     $codes[] = $bbc_indent;
     $codes[] = $bbc_legacy_ipb_tag;
+    $codes[] = $bbc_marquee_complex;
+    $codes[] = $bbc_marquee_simple;
 
     GWBBC::replaceCode('html', $bbc_html, $codes);
     GWBBC::replaceCode('center', $bbc_center_inline, $codes);
