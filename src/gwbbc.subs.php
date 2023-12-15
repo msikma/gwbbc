@@ -111,6 +111,40 @@ class GWBBC {
       },
       'block_level' => false,
     );
+
+    // Topic link tag.
+    //
+    // This links directly to a topic by id.
+    // [topic=1234]topic link[/topic]
+    $bbc_topic = array(
+      'tag' => 'topic',
+      'type' => 'unparsed_equals',
+      'validate' => function(&$tag, &$data, $disabled) {
+        global $scripturl;
+        $querystring = '?topic='.$data.'.0';
+        $data = $scripturl.$querystring;
+      },
+      'before' => '<a href="$1" class="gwbbc gwbbc_topic_link">',
+      'after' => '</a>',
+      'block_level' => false,
+    );
+
+    // Post tag.
+    //
+    // This links directly to a post by id.
+    // [post=1234]post link[/post]
+    $bbc_post = array(
+      'tag' => 'post',
+      'type' => 'unparsed_equals',
+      'validate' => function(&$tag, &$data, $disabled) {
+        global $scripturl;
+        $querystring = '?msg='.$data;
+        $data = $scripturl.$querystring;
+      },
+      'before' => '<a href="$1" class="gwbbc gwbbc_post_link">',
+      'after' => '</a>',
+      'block_level' => false,
+    );
     
     // Quote tag with author and date, but no link.
     //
@@ -323,6 +357,8 @@ class GWBBC {
       'content' => '<span data-tag="legacy_ipb_tag" data-value="$1" class="bbc_legacy_ipb_tag"></span>',
     );
   
+    $codes[] = $bbc_topic;
+    $codes[] = $bbc_post;
     $codes[] = $bbc_youtube;
     $codes[] = $bbc_irc;
     $codes[] = $bbc_hide;
