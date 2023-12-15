@@ -98,6 +98,20 @@ class GWBBC {
       'block_level' => true,
     );
     
+    // HTML code tag.
+    //
+    // In SMF, [html] defaults to a tag that dumps unparsed and unsanitized HTML
+    // into the document. This one escapes all content instead, which is how it
+    // was also used in the past.
+    $bbc_html = array(
+      'tag' => 'html',
+      'type' => 'unparsed_content',
+      'validate' => function(&$tag, &$data, $disabled) {
+        $data = '<span class="gwbbc gwbbc_html">'.htmlentities($data).'</span>';
+      },
+      'block_level' => false,
+    );
+    
     // Quote tag with author and date, but no link.
     //
     // Mostly copied from Subs.php and modified. Used for very old converted quotes (around 2005).
@@ -301,6 +315,7 @@ class GWBBC {
     $codes[] = $bbc_indent;
     $codes[] = $bbc_legacy_ipb_tag;
 
+    GWBBC::replaceCode('html', $bbc_html, $codes);
     GWBBC::replaceCode('center', $bbc_center_inline, $codes);
     GWBBC::modifyCode('left', ['block_level' => false], $codes);
     GWBBC::modifyCode('right', ['block_level' => false], $codes);
