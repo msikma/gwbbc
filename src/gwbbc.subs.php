@@ -133,7 +133,7 @@ class GWBBC {
     // [marquee]Hi[/marquee]
     $bbc_marquee_simple = array(
       'tag' => 'marquee',
-      'before' => '<marquee>',
+      'before' => '<marquee class="gwbbc gwbbc_marquee">',
       'after' => '</marquee>',
       'block_level' => true,
     );
@@ -146,7 +146,7 @@ class GWBBC {
         'scrolldelay' => array('optional' => true, 'value' => ' scrolldelay="$1"'),
         'truespeed' => array('optional' => true, 'value' => ' truespeed="$1"'),
       ),
-      'before' => '<marquee{behavior}{direction}{scrollamount}{scrolldelay}{truespeed}>',
+      'before' => '<marquee{behavior}{direction}{scrollamount}{scrolldelay}{truespeed} class="gwbbc gwbbc_marquee">',
       'after' => '</marquee>',
       'block_level' => true,
     );
