@@ -356,7 +356,35 @@ class GWBBC {
       'type' => 'unparsed_content',
       'content' => '<span data-tag="legacy_ipb_tag" data-value="$1" class="bbc_legacy_ipb_tag"></span>',
     );
-  
+
+    // Updated [code] tags.
+    //
+    // This removes the different behavior per browser and also removes the buggy PHP syntax highlighting.
+    // [code]my code[/code]
+    // [code=php]my code[/code]
+    $bbc_code_unparsed_content = array(
+      'tag' => 'code',
+      'type' => 'unparsed_content',
+      'content' => '<div class="bbc_code_block"><div class="codeheader"><span class="label">'.$txt['code'].':</span><a href="javascript:void(0);" onclick="return smfSelectText(this);" class="codeoperation">'.$txt['code_select'].'</a></div><code class="bbc_code">$1</code></div>',
+      'validate' => function(&$tag, &$data, $disabled) {
+        if (isset($disabled['code'])) {
+          return;
+        }
+      },
+      'block_level' => true,
+    );
+    $bbc_code_unparsed_equals_content = array(
+      'tag' => 'code',
+      'type' => 'unparsed_equals_content',
+      'content' => '<div class="bbc_code_block"><div class="codeheader"><span class="label">'.$txt['code'].': (<span class="language">$2</span>)</span><a href="javascript:void(0);" onclick="return smfSelectText(this);" class="codeoperation">'.$txt['code_select'].'</a></div><code class="bbc_code">$1</code></div>',
+      'validate' => function(&$tag, &$data, $disabled) {
+        if (isset($disabled['code'])) {
+          return;
+        }
+      },
+      'block_level' => true,
+    );
+
     $codes[] = $bbc_topic;
     $codes[] = $bbc_post;
     $codes[] = $bbc_youtube;
@@ -375,9 +403,10 @@ class GWBBC {
     $codes[] = $bbc_legacy_ipb_tag;
     $codes[] = $bbc_marquee_complex;
     $codes[] = $bbc_marquee_simple;
-
-    GWBBC::replaceCode('html', $bbc_html, $codes);
-    GWBBC::replaceCode('center', $bbc_center_inline, $codes);
+    
+    GWBBC::replaceCode('code', [$bbc_code_unparsed_content, $bbc_code_unparsed_equals_content], $codes);
+    GWBBC::replaceCode('html', [$bbc_html], $codes);
+    GWBBC::replaceCode('center', [$bbc_center_inline], $codes);
     GWBBC::modifyCode('left', ['block_level' => false], $codes);
     GWBBC::modifyCode('right', ['block_level' => false], $codes);
   }
@@ -392,16 +421,22 @@ class GWBBC {
     }
   }
 
-  public static function replaceCode($tag_name, $new_tag, &$codes) {
+  public static function removeCode($tag_name, &$codes) {
     // Remove all existing tags by this tag name.
     foreach ($codes as $k => $v) {
       if ($v['tag'] === $tag_name) {
         unset($codes[$k]);
       }
     }
+  }
 
-    // Insert the new tag.
-    $codes[] = $new_tag;
+  public static function replaceCode($tag_name, $new_tags, &$codes) {
+    GWBBC::removeCode($tag_name, $codes);
+
+    // Insert the new tags.
+    foreach ($new_tags as $new_tag) {
+      $codes[] = $new_tag;
+    }
   }
 
   public static function addButtons(&$bbc_tags) {
