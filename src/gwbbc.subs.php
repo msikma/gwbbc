@@ -75,8 +75,8 @@ class GWBBC {
     $bbc_spoiler_decorator = '<script>GWBBC.decorateSpoiler(document.currentScript)</script>';
     $bbc_spoiler = array(
       'tag' => 'spoiler',
-      'type' => 'unparsed_content',
-      'content' => '<span class="gwbbc gwbbc_spoiler is_hidden" title="'.$txt['gwbbc_spoiler'].'">$1</span>'.$bbc_spoiler_decorator,
+      'before' => '<span class="gwbbc gwbbc_spoiler is_hidden" title="'.$txt['gwbbc_spoiler'].'">',
+      'after' => '</span>'.$bbc_spoiler_decorator,
       'block_level' => false,
     );
 
