@@ -29,7 +29,7 @@ $hook_functions = array(
 $call = empty($context['uninstalling']) ? 'add_integration_function' : 'remove_integration_function';
 
 foreach ($hook_functions as $hook => $function) {
-  $call($hook, $function);
+  $call($hook, $function, true);
 }
 
 if (SMF == 'SSI') {
