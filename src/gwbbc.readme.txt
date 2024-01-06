@@ -2,6 +2,6 @@
 
 Adds several new BBC tags. Designed for the [url=https://github.com/msikma/gw2006]Gaming World Forums[/url] theme.
 
-See the [url=https://github.com/msikma/gw2006]GWBBC readme[/url] on Github for more information.
+See the [url=https://github.com/msikma/gwbbc]GWBBC readme[/url] on Github for more information.
 
 MIT license.
